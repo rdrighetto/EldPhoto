@@ -3,6 +3,7 @@
 	<name>EldPhoto</name>
 	<comment></comment>
 	<projects>
+		<project>AndroidImageFilter</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
