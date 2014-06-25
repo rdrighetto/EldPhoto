@@ -2,7 +2,14 @@ package org.eldorado.eldphoto;
 
 import org.eldorado.eldphoto.R;
 
+//import cn.Ragnarok.BitmapFilter;
+
+
+
+
+
 import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -22,11 +29,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.Ragnarok.BitmapFilter;
 
 public class MainActivity extends Activity {
 
 	// Activity request codes
 	private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
+	private static final int SELECT_IMAGE_REQUEST_CODE = 200;
 	public static final int MEDIA_TYPE_IMAGE = 1;
 
 	// directory name to store captured images and videos
@@ -36,15 +45,23 @@ public class MainActivity extends Activity {
 
 	private ImageView imgPreview;
 	private Button btnCapturePicture;
+	private Button btnSelectPicture;
 	private TextView f1, f2, f3;
+	private Bitmap originBitmap = null;
+	private File tempFile = new File("/sdcard/.a.jpg");
+//    private Bitmap src;
 
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		
 		imgPreview = (ImageView) findViewById(R.id.imgPreview);
+//		src = BitmapFactory.decodeResource(getResources(), R.drawable.image);
 		btnCapturePicture = (Button) findViewById(R.id.btnCapturePicture);
+		btnSelectPicture = (Button) findViewById(R.id.btnSelectPicture);
 		f1 = (TextView) findViewById(R.id.f1);
 		f2 = (TextView) findViewById(R.id.f2);
 		f3 = (TextView) findViewById(R.id.f3);
@@ -52,6 +69,8 @@ public class MainActivity extends Activity {
 		/**
 		 * Capture image button click event
 		 */
+		
+		
 		btnCapturePicture.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -60,12 +79,28 @@ public class MainActivity extends Activity {
 				captureImage();
 			}
 		});
+		
+		btnSelectPicture.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+					selecImage();
+
+			}
+			
+		});
+		
+
 
 		f1.setOnClickListener(new TextView.OnClickListener() {
 
+//			ImageFilters imgFilter = new ImageFilters();
+			
 			@Override
 			public void onClick(View v) {
-				if (f1.getTextSize() == 45.0) {
+//				if (f1.getTextSize() == 45.0) {
 					f1.setBackgroundColor(0xFF000000);
 					f1.setTextColor(0xFFFFFFFF);
 					f1.setTextSize((float) 32.0);
@@ -75,11 +110,34 @@ public class MainActivity extends Activity {
 					f3.setBackgroundColor(0xFFFFFFFF);
 					f3.setTextColor(0xFF000000);
 					f3.setTextSize((float) 30.0);
-				} else {
-					f1.setBackgroundColor(0xFFFFFFFF);
-					f1.setTextColor(0xFF000000);
-					f1.setTextSize((float) 30.0);
-				}
+
+					// bitmap factory
+					BitmapFactory.Options options = new BitmapFactory.Options();
+					
+					final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
+							options);
+					
+					Bitmap newBitmap = BitmapFilter.changeStyle(bitmap, BitmapFilter.GAUSSIAN_BLUR_STYLE);
+					imgPreview.setImageBitmap(newBitmap);
+
+//
+//					// downsizing image as it throws OutOfMemory Exception for larger
+//					// images
+////					options.inSampleSize = 2;
+//
+
+//					
+//					saveBitmap(imgFilter.applyGaussianBlurEffect(bitmap),"effect_gaussian_blue");
+					
+//					BitmapFilter.LOMO_STYLE:
+//					changeBitmap = BitmapFilter.changeStyle(originBitmap, BitmapFilter.LOMO_STYLE, 
+//							(originBitmap.getWidth() / 2.0) * 95 / 100.0);
+					
+//				} else {
+//					f1.setBackgroundColor(0xFFFFFFFF);
+//					f1.setTextColor(0xFF000000);
+//					f1.setTextSize((float) 30.0);
+//				}
 			}
 		});
 
@@ -87,7 +145,7 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				if (f2.getTextSize() == 45.0) {
+//				if (f2.getTextSize() == 45.0) {
 					f2.setBackgroundColor(0xFF000000);
 					f2.setTextColor(0xFFFFFFFF);
 					f2.setTextSize((float) 32.0);
@@ -97,11 +155,11 @@ public class MainActivity extends Activity {
 					f1.setBackgroundColor(0xFFFFFFFF);
 					f1.setTextColor(0xFF000000);
 					f1.setTextSize((float) 30.0);
-				} else {
-					f2.setBackgroundColor(0xFFFFFFFF);
-					f2.setTextColor(0xFF000000);
-					f2.setTextSize((float) 30.0);
-				}
+//				} else {
+//					f2.setBackgroundColor(0xFFFFFFFF);
+//					f2.setTextColor(0xFF000000);
+//					f2.setTextSize((float) 30.0);
+//				}
 			}
 		});
 
@@ -109,7 +167,7 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				if (f3.getTextSize() == 45.0) {
+//				if (f3.getTextSize() == 45.0) {
 					f3.setBackgroundColor(0xFF000000);
 					f3.setTextColor(0xFFFFFFFF);
 					f3.setTextSize((float) 32.0);
@@ -119,11 +177,11 @@ public class MainActivity extends Activity {
 					f1.setBackgroundColor(0xFFFFFFFF);
 					f1.setTextColor(0xFF000000);
 					f1.setTextSize((float) 30.0);
-				} else {
-					f3.setBackgroundColor(0xFFFFFFFF);
-					f3.setTextColor(0xFF000000);
-					f3.setTextSize((float) 30.0);
-				}
+//				} else {
+//					f3.setBackgroundColor(0xFFFFFFFF);
+//					f3.setTextColor(0xFF000000);
+//					f3.setTextSize((float) 30.0);
+//				}
 			}
 		});
 
@@ -135,6 +193,24 @@ public class MainActivity extends Activity {
 			// will close the app if the device does't have camera
 			finish();
 		}
+	}
+
+	private void selecImage() {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+		intent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI,
+				"image/*");
+		intent.setType("image/*");
+		intent.putExtra("output", Uri.fromFile(tempFile));
+		intent.putExtra("crop", "true");
+//				intent.putExtra("aspectX", 1);
+//				intent.putExtra("aspectY", 1);
+//				intent.putExtra("outputX", PHOTO_SIZE_WIDTH);
+//				intent.putExtra("outputY", PHOTO_SIZE_HEIGHT);
+		startActivityForResult(intent, SELECT_IMAGE_REQUEST_CODE);
+		
+//		originBitmap = BitmapFactory.decodeFile(tempFile.getAbsolutePath());
+//		imgPreview.setImageBitmap(BitmapFactory.decodeFile(tempFile.getAbsolutePath()));
 	}
 
 	/**
@@ -152,7 +228,7 @@ public class MainActivity extends Activity {
 	}
 
 	/**
-	 * Capturing Camera Image will lauch camera app requrest image capture
+	 * Capturing Camera Image will launch camera app request image capture
 	 */
 	private void captureImage() {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -166,14 +242,14 @@ public class MainActivity extends Activity {
 	}
 
 	/**
-	 * Here we store the file url as it will be null after returning from camera
+	 * Here we store the file uri as it will be null after returning from camera
 	 * app
 	 */
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 
-		// save file url in bundle as it will be null on scren orientation
+		// save file uri in bundle as it will be null on screen orientation
 		// changes
 		outState.putParcelable("file_uri", fileUri);
 	}
@@ -208,8 +284,29 @@ public class MainActivity extends Activity {
 						"Sorry! Failed to capture image", Toast.LENGTH_SHORT)
 						.show();
 			}
+			
 		}
-	}
+		else if (requestCode == SELECT_IMAGE_REQUEST_CODE) {
+			if (resultCode == RESULT_OK) {
+				// successfully captured the image
+				// display it in image view
+				previewSelectedImage();
+			} else if (resultCode == RESULT_CANCELED) {
+				// user cancelled Image capture
+				Toast.makeText(getApplicationContext(),
+						"User cancelled image selection", Toast.LENGTH_SHORT)
+						.show();
+			} else {
+				// failed to capture image
+				Toast.makeText(getApplicationContext(),
+						"Sorry! Failed to select image", Toast.LENGTH_SHORT)
+						.show();
+			}
+			
+		}
+		
+		}
+		
 
 	/**
 	 * Display image from a path to ImageView
@@ -218,7 +315,7 @@ public class MainActivity extends Activity {
 		try {
 			imgPreview.setVisibility(View.VISIBLE);
 
-			// bimatp factory
+			// bitmap factory
 			BitmapFactory.Options options = new BitmapFactory.Options();
 
 			// downsizing image as it throws OutOfMemory Exception for larger
@@ -233,7 +330,39 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
 	}
+	
+	private void previewSelectedImage() {
+		try {
+			imgPreview.setVisibility(View.VISIBLE);
 
+			// bitmap factory
+			BitmapFactory.Options options = new BitmapFactory.Options();
+
+			// downsizing image as it throws OutOfMemory Exception for larger
+			// images
+			options.inSampleSize = 2;
+
+			final Bitmap bitmap = BitmapFactory.decodeFile(tempFile.getPath(),
+					options);
+
+			imgPreview.setImageBitmap(bitmap);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+	}
+
+    private void saveBitmap(Bitmap bmp,String fileName){
+        try {
+            imgPreview.setImageBitmap(bmp);
+            File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileName+".png");
+            FileOutputStream fos = new FileOutputStream(f);
+            bmp.compress(Bitmap.CompressFormat.PNG,90,fos);
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    
 	/**
 	 * ------------ Helper Methods ----------------------
 	 * */
