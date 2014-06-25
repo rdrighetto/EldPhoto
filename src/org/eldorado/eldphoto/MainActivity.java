@@ -47,9 +47,8 @@ public class MainActivity extends Activity {
 	private Button btnCapturePicture;
 	private Button btnSelectPicture;
 	private TextView f1, f2, f3;
-	private Bitmap originBitmap = null;
 	private File tempFile = new File("/sdcard/.a.jpg");
-//    private Bitmap src;
+    private Bitmap bitmap;
 
     
 	@Override
@@ -112,12 +111,12 @@ public class MainActivity extends Activity {
 					f3.setTextSize((float) 30.0);
 
 					// bitmap factory
-					BitmapFactory.Options options = new BitmapFactory.Options();
+//					BitmapFactory.Options options = new BitmapFactory.Options();
+//					
+//					final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
+//							options);
 					
-					final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
-							options);
-					
-					Bitmap newBitmap = BitmapFilter.changeStyle(bitmap, BitmapFilter.GAUSSIAN_BLUR_STYLE);
+					Bitmap newBitmap = BitmapFilter.changeStyle(bitmap, BitmapFilter.SOFT_GLOW_STYLE, 0.6);
 					imgPreview.setImageBitmap(newBitmap);
 
 //
@@ -160,6 +159,8 @@ public class MainActivity extends Activity {
 //					f2.setTextColor(0xFF000000);
 //					f2.setTextSize((float) 30.0);
 //				}
+					imgPreview.setImageBitmap(bitmap);
+
 			}
 		});
 
@@ -322,7 +323,7 @@ public class MainActivity extends Activity {
 			// images
 			options.inSampleSize = 2;
 
-			final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
+			bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
 					options);
 
 			imgPreview.setImageBitmap(bitmap);
@@ -342,7 +343,7 @@ public class MainActivity extends Activity {
 			// images
 			options.inSampleSize = 2;
 
-			final Bitmap bitmap = BitmapFactory.decodeFile(tempFile.getPath(),
+			bitmap = BitmapFactory.decodeFile(tempFile.getPath(),
 					options);
 
 			imgPreview.setImageBitmap(bitmap);
