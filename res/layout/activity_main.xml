@@ -78,11 +78,11 @@
             
         <TextView
             android:id="@+id/f1"
-            android:layout_width="40dp"
+            android:layout_width="140dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="F1"
+            android:text="Eld Sepia"
             android:textColor="@android:color/black"
             android:background="@android:color/white"
             android:layout_margin="5dp"
@@ -90,17 +90,17 @@
         
         <TextView
             android:id="@+id/f2"
-            android:layout_width="40dp"
+            android:layout_width="140dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:textColor="@android:color/black"
             android:background="@android:color/white"
             android:layout_margin="5dp"
-            android:text="F2"
+            android:text="Eld Lomo"
             android:textSize="30dp" />
         
-        <TextView
+<!--         <TextView
             android:id="@+id/f3"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -110,7 +110,7 @@
             android:background="@android:color/white"
             android:text="F3"
             android:layout_margin="5dp"
-            android:textSize="30dp" />
+            android:textSize="30dp" /> -->
             
         </LinearLayout>
     </LinearLayout>

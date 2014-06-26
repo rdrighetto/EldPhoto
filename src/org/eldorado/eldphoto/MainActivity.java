@@ -46,7 +46,7 @@ public class MainActivity extends Activity {
 	private ImageView imgPreview;
 	private Button btnCapturePicture;
 	private Button btnSelectPicture;
-	private TextView f1, f2, f3;
+	private TextView f1, f2;
 	private File tempFile = new File("/sdcard/.a.jpg");
     private Bitmap bitmap;
 
@@ -63,7 +63,7 @@ public class MainActivity extends Activity {
 		btnSelectPicture = (Button) findViewById(R.id.btnSelectPicture);
 		f1 = (TextView) findViewById(R.id.f1);
 		f2 = (TextView) findViewById(R.id.f2);
-		f3 = (TextView) findViewById(R.id.f3);
+//		f3 = (TextView) findViewById(R.id.f3);
 
 		/**
 		 * Capture image button click event
@@ -106,9 +106,9 @@ public class MainActivity extends Activity {
 					f2.setBackgroundColor(0xFFFFFFFF);
 					f2.setTextColor(0xFF000000);
 					f2.setTextSize((float) 30.0);
-					f3.setBackgroundColor(0xFFFFFFFF);
-					f3.setTextColor(0xFF000000);
-					f3.setTextSize((float) 30.0);
+//					f3.setBackgroundColor(0xFFFFFFFF);
+//					f3.setTextColor(0xFF000000);
+//					f3.setTextSize((float) 30.0);
 
 					// bitmap factory
 //					BitmapFactory.Options options = new BitmapFactory.Options();
@@ -116,7 +116,7 @@ public class MainActivity extends Activity {
 //					final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
 //							options);
 					
-					Bitmap newBitmap = BitmapFilter.changeStyle(bitmap, BitmapFilter.SOFT_GLOW_STYLE, 0.6);
+					Bitmap newBitmap = BitmapFilter.changeStyle(bitmap, BitmapFilter.ELD_STYLE);
 					imgPreview.setImageBitmap(newBitmap);
 
 //
@@ -148,9 +148,9 @@ public class MainActivity extends Activity {
 					f2.setBackgroundColor(0xFF000000);
 					f2.setTextColor(0xFFFFFFFF);
 					f2.setTextSize((float) 32.0);
-					f3.setBackgroundColor(0xFFFFFFFF);
-					f3.setTextColor(0xFF000000);
-					f3.setTextSize((float) 30.0);
+//					f3.setBackgroundColor(0xFFFFFFFF);
+//					f3.setTextColor(0xFF000000);
+//					f3.setTextSize((float) 30.0);
 					f1.setBackgroundColor(0xFFFFFFFF);
 					f1.setTextColor(0xFF000000);
 					f1.setTextSize((float) 30.0);
@@ -159,32 +159,33 @@ public class MainActivity extends Activity {
 //					f2.setTextColor(0xFF000000);
 //					f2.setTextSize((float) 30.0);
 //				}
-					imgPreview.setImageBitmap(bitmap);
+					Bitmap newBitmap = BitmapFilter.changeStyle(bitmap, BitmapFilter.ELD_LOMO_STYLE);
+					imgPreview.setImageBitmap(newBitmap);
 
 			}
 		});
 
-		f3.setOnClickListener(new TextView.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-//				if (f3.getTextSize() == 45.0) {
-					f3.setBackgroundColor(0xFF000000);
-					f3.setTextColor(0xFFFFFFFF);
-					f3.setTextSize((float) 32.0);
-					f2.setBackgroundColor(0xFFFFFFFF);
-					f2.setTextColor(0xFF000000);
-					f2.setTextSize((float) 30.0);
-					f1.setBackgroundColor(0xFFFFFFFF);
-					f1.setTextColor(0xFF000000);
-					f1.setTextSize((float) 30.0);
-//				} else {
-//					f3.setBackgroundColor(0xFFFFFFFF);
-//					f3.setTextColor(0xFF000000);
-//					f3.setTextSize((float) 30.0);
-//				}
-			}
-		});
+//		f3.setOnClickListener(new TextView.OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+////				if (f3.getTextSize() == 45.0) {
+//					f3.setBackgroundColor(0xFF000000);
+//					f3.setTextColor(0xFFFFFFFF);
+//					f3.setTextSize((float) 32.0);
+//					f2.setBackgroundColor(0xFFFFFFFF);
+//					f2.setTextColor(0xFF000000);
+//					f2.setTextSize((float) 30.0);
+//					f1.setBackgroundColor(0xFFFFFFFF);
+//					f1.setTextColor(0xFF000000);
+//					f1.setTextSize((float) 30.0);
+////				} else {
+////					f3.setBackgroundColor(0xFFFFFFFF);
+////					f3.setTextColor(0xFF000000);
+////					f3.setTextSize((float) 30.0);
+////				}
+//			}
+//		});
 
 		// Checking camera availability
 		if (!isDeviceSupportCamera()) {
