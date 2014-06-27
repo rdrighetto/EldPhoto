@@ -73,7 +73,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:baselineAligned="_baseline"
+            android:baselineAligned="false"
             android:gravity="top|center_horizontal"
             android:orientation="horizontal" >
             
